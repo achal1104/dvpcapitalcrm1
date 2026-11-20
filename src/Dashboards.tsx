@@ -46,7 +46,7 @@ function Bars({ data, horizontal }: { data: { name: string; value: number }[]; h
   const d = data.filter(x => x.value > 0)
   if (!d.length) return <p className="text-sm text-slate-500">No data yet.</p>
   return <div className="h-60"><ResponsiveContainer>{horizontal
-    ? <BarChart data={d} layout="vertical"><CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" /><XAxis type="number" allowDecimals={false} /><YAxis type="category" dataKey="name" width={150} tick={{ fontSize: 11 }} /><Tooltip /><Bar dataKey="value" fill="#1d4ed8" radius={4} /></BarChart>
+    ? <BarChart data={d} layout="vertical"><CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" /><XAxis type="number" allowDecimals={false} /><YAxis type="category" dataKey="name" width={96} tick={{ fontSize: 11 }} /><Tooltip /><Bar dataKey="value" fill="#1d4ed8" radius={4} /></BarChart>
     : <BarChart data={d}><CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" /><XAxis dataKey="name" tick={{ fontSize: 11 }} /><YAxis allowDecimals={false} /><Tooltip /><Bar dataKey="value" fill="#1d4ed8" radius={4} /></BarChart>}</ResponsiveContainer></div>
 }
 

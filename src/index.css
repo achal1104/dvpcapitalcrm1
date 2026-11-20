@@ -9,3 +9,13 @@ body{background:#f4f6fa;color:#0f172a}
 .no-scrollbar::-webkit-scrollbar {
   display: none;              /* Chrome, Edge, Safari */
 }
+/* mobile */
+html,body{overflow-x:clip}
+img,svg,video,canvas{max-width:100%}
+.overflow-x-auto{-webkit-overflow-scrolling:touch}
+@media (max-width:640px){
+  input,select,textarea{font-size:16px}
+  main h1{font-size:1.35rem}
+  main table{font-size:13px}
+  main .overflow-x-auto th,main .overflow-x-auto td{padding-left:.6rem;padding-right:.6rem}
+}

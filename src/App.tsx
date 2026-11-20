@@ -19,6 +19,7 @@ function Layout({ role }: { role: Role }) {
   const title = items.find(i => '/' + slug(i) === loc.pathname) ?? 'Dashboard'
   return (
     <div className="min-h-screen lg:flex lg:items-start">
+      {open && <div className="fixed inset-0 z-20 bg-black/40 lg:hidden" onClick={() => setOpen(false)} />}
       <aside className={`no-scrollbar fixed inset-y-0 left-0 z-30 w-64 shrink-0 overflow-y-auto overscroll-contain bg-navy p-4 text-slate-200 transition-transform lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 ${open ? '' : '-translate-x-full'}`}>
         <div className="mb-6 flex items-start justify-between"><div className="flex items-center gap-2"><Landmark className="text-gold" /><b className="text-lg text-white">DVP CAPITALS</b></div><button className="lg:hidden" aria-label="Close menu" onClick={() => setOpen(false)}><X /></button></div>        <nav className="space-y-1">{items.map(i => (
           <NavLink key={i} to={'/' + slug(i)} onClick={() => setOpen(false)} className={({ isActive }) => `block rounded-lg px-3 py-2 text-sm ${isActive ? 'bg-royal text-white border-l-2 border-gold' : 'hover:bg-white/10'}`}>{i}</NavLink>))}</nav>
@@ -26,9 +27,9 @@ function Layout({ role }: { role: Role }) {
       <div className="flex-1 min-w-0">
         <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-slate-200 bg-white px-4 py-3">
           <button className="lg:hidden" onClick={() => setOpen(true)}><Menu /></button>
-          <div className="text-sm text-slate-500">DVP CAPITALS / <span className="font-semibold text-navy">{title}</span></div>
+          <div className="min-w-0 truncate text-sm text-slate-500"><span className="hidden sm:inline">DVP CAPITALS / </span><span className="font-semibold text-navy">{title}</span></div>
           <div className="ml-auto flex items-center gap-3 text-sm"><span className="hidden rounded-full bg-amber-50 px-3 py-1 text-amber-700 sm:inline">{role}</span>
-            <NavLink to="/change-password" className="text-slate-600 hover:text-royal">Change password</NavLink><button onClick={logout} className="flex items-center gap-1 text-slate-600 hover:text-red-600"><LogOut size={16} />Log out</button></div>
+            <NavLink to="/change-password" className="text-slate-600 hover:text-royal"><span className="hidden sm:inline">Change password</span><span className="sm:hidden">Password</span></NavLink><button onClick={logout} className="flex items-center gap-1 text-slate-600 hover:text-red-600"><LogOut size={16} />Log out</button></div>
         </header>
         <main className="p-4 lg:p-6">
           <Routes>
@@ -63,7 +64,7 @@ function Dashboard({ role }: { role: Role }) {
       <div className="grid gap-4 lg:grid-cols-2">
         <div className={card + ' p-4'}><b className="text-sm">Monthly revenue and commission</b><div className="h-64"><ResponsiveContainer><AreaChart data={REVENUE}><CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" /><XAxis dataKey="m" /><YAxis tickFormatter={v => v / 100000 + 'L'} /><Tooltip formatter={(v: number) => inr(v)} /><Area dataKey="revenue" stroke="#1d4ed8" fill="#dbeafe" /><Area dataKey="commission" stroke="#c9a227" fill="#fef3c7" /></AreaChart></ResponsiveContainer></div></div>
         <div className={card + ' p-4'}><b className="text-sm">Applications vs disbursed</b><div className="h-64"><ResponsiveContainer><BarChart data={TREND}><CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" /><XAxis dataKey="m" /><YAxis /><Tooltip /><Bar dataKey="applied" fill="#0b1f44" radius={4} /><Bar dataKey="disbursed" fill="#c9a227" radius={4} /></BarChart></ResponsiveContainer></div></div>
-        {!fr && <div className={card + ' p-4'}><b className="text-sm">Franchise performance (disbursed files)</b><div className="h-64"><ResponsiveContainer><BarChart data={FR_PERF} layout="vertical"><XAxis type="number" /><YAxis type="category" dataKey="n" width={120} /><Tooltip /><Bar dataKey="v" fill="#1d4ed8" radius={4} /></BarChart></ResponsiveContainer></div></div>}
+        {!fr && <div className={card + ' p-4'}><b className="text-sm">Franchise performance (disbursed files)</b><div className="h-64"><ResponsiveContainer><BarChart data={FR_PERF} layout="vertical"><XAxis type="number" /><YAxis type="category" dataKey="n" width={96} /><Tooltip /><Bar dataKey="v" fill="#1d4ed8" radius={4} /></BarChart></ResponsiveContainer></div></div>}
         <div className={card + ' p-4'}><b className="text-sm">Loan category mix (%)</b><div className="h-64"><ResponsiveContainer><PieChart><Pie data={CAT_MIX} dataKey="value" nameKey="name" innerRadius={50} outerRadius={90}>{CAT_MIX.map((_, i) => <Cell key={i} fill={COLORS[i]} />)}</Pie><Tooltip /></PieChart></ResponsiveContainer></div></div>
       </div>
     </div>
