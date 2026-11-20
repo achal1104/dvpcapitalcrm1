@@ -171,7 +171,7 @@ function Perms() {
 export function LeadsView({ role, children }: { role: string; children: React.ReactNode }) {
   const [kb, setKb] = useState(false); const { leads, setStatus } = useStore(); const L = leads.filter(l => role !== 'Franchise Owner' || l.franchise === MY_FRANCHISE)
   return <div><div className="mb-3 flex gap-2 text-sm">{['Table', 'Kanban'].map(v => <button key={v} onClick={() => setKb(v === 'Kanban')} className={`rounded-full px-4 py-1.5 ${(v === 'Kanban') === kb ? 'bg-royal text-white' : 'bg-white border border-slate-200'}`}>{v}</button>)}</div>
-    {kb ? <div className="grid gap-3 overflow-x-auto md:grid-cols-3 xl:grid-cols-6">{LEAD_STATUS.map(s => <div key={s} className="min-w-40 rounded-xl bg-slate-100 p-2"><div className="mb-2 text-sm font-semibold text-navy">{s} ({L.filter(l => l.status === s).length})</div>
+    {kb ? <div className="grid grid-cols-2 gap-3 overflow-x-auto md:grid-cols-3 xl:grid-cols-6">{LEAD_STATUS.map(s => <div key={s} className="min-w-40 rounded-xl bg-slate-100 p-2"><div className="mb-2 text-sm font-semibold text-navy">{s} ({L.filter(l => l.status === s).length})</div>
       {L.filter(l => l.status === s).map(l => <div key={l.id} className="mb-2 rounded-lg bg-white p-2 text-sm shadow-sm"><b>{l.name}</b><div className="text-xs text-slate-500">{l.category} · {inr(l.amount)}</div><select value={l.status} onChange={e => setStatus(l.id, e.target.value)} className="mt-1 w-full rounded border border-slate-200 text-xs">{LEAD_STATUS.map(x => <option key={x}>{x}</option>)}</select></div>)}</div>)}</div> : children}</div>
 }
 function NotifPage({ c, role }: { c: Cfg; role: string }) {

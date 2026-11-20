@@ -93,7 +93,7 @@ function Leads({ role }: { role: Role }) {
         {!fr && <button onClick={csv} className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm">Export CSV</button>}
         <button onClick={() => setShow(!show)} className="flex items-center gap-1 rounded-lg bg-royal px-4 py-2 text-sm font-semibold text-white"><Plus size={16} />Add lead</button></div>
       {msg && <p role="status" className="rounded-lg bg-green-50 p-3 text-sm text-green-700">{msg}</p>}
-      {show && <div className={card + ' grid gap-3 p-4 sm:grid-cols-4'}>
+      {show && <div className={card + ' grid gap-3 p-4 sm:grid-cols-2 lg:grid-cols-4'}>
         <input placeholder="Customer name" aria-label="Customer name" value={f.name} onChange={e => setF({ ...f, name: e.target.value })} className={fld} />
         <div><input placeholder="Mobile (10 digits)" aria-label="Mobile" value={f.mobile} onChange={e => setF({ ...f, mobile: e.target.value })} className={'w-full ' + fld} />{dup && <p className="text-xs text-amber-600">Duplicate mobile number: this lead already exists.</p>}</div>
         <input placeholder="City" aria-label="City" value={f.city} onChange={e => setF({ ...f, city: e.target.value })} className={fld} />

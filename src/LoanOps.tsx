@@ -39,8 +39,8 @@ export function ProcessingPanel({ loan, role }: { loan: Loan; role: string }) {
       <div className="rounded-lg bg-slate-50 p-3"><div className="mb-1 text-xs text-slate-500">Status</div><DelayBadge loan={loan} /></div>
     </div>
     <div><div className="mb-1 text-xs font-semibold text-slate-500">Time spent per stage</div>
-      {dur.length ? <table className="w-full text-left text-xs"><thead className="text-slate-500"><tr><th className="py-1 font-medium">Stage</th><th className="font-medium">Entered</th><th className="text-right font-medium">Time</th></tr></thead>
-        <tbody>{dur.map((d, i) => <tr key={i} className="border-t border-slate-100"><td className="py-1">{d.s}{d.open && <em className="ml-1 text-slate-400">(current)</em>}</td><td>{fmtDay(d.from)}</td><td className={`text-right ${d.over ? 'font-semibold text-red-600' : ''}`}>{fmtDur(d.ms)}</td></tr>)}</tbody></table>
+      {dur.length ? <div className="overflow-x-auto"><table className="w-full text-left text-xs"><thead className="text-slate-500"><tr><th className="py-1 font-medium">Stage</th><th className="font-medium">Entered</th><th className="text-right font-medium">Time</th></tr></thead>
+        <tbody>{dur.map((d, i) => <tr key={i} className="border-t border-slate-100"><td className="py-1">{d.s}{d.open && <em className="ml-1 text-slate-400">(current)</em>}</td><td>{fmtDay(d.from)}</td><td className={`text-right ${d.over ? 'font-semibold text-red-600' : ''}`}>{fmtDur(d.ms)}</td></tr>)}</tbody></table></div>
         : <p className="text-slate-500">No stage timing was recorded for this file.</p>}
       <p className="mt-1 text-xs text-slate-400">Calendar days. Red means more than the allowed time for that stage.</p></div>
     {internal && <div className="space-y-2 border-t border-slate-200 pt-3"><div className="text-xs font-semibold text-slate-500">Escalation</div>
@@ -90,7 +90,7 @@ export function SanctionPanel({ loan, role }: { loan: Loan; role: string }) {
     {can && <div className="space-y-2 border-t border-slate-200 pt-3"><div className="text-xs font-semibold text-slate-500">Upload sanction letter</div>
       {approved.length === 0 ? <p className="rounded-lg bg-amber-50 p-3 text-amber-800">No lender has approved this file yet. Mark a lender as Approved under Lenders, then upload its sanction letter.</p> : <>
         <select aria-label="Lender" value={pick} onChange={e => setLender(e.target.value)} className={inp + ' w-full'}>{approved.map(x => <option key={x.name}>{x.name}</option>)}</select>
-        <div className="grid grid-cols-2 gap-2"><label className="text-xs text-slate-500">Sanctioned amount (₹)<input type="number" value={amount} placeholder={String(lenderAmt || '')} onChange={e => setAmount(e.target.value)} className={inp + ' w-full'} /></label>
+        <div className="grid grid-cols-1 gap-2 min-[420px]:grid-cols-2"><label className="text-xs text-slate-500">Sanctioned amount (₹)<input type="number" value={amount} placeholder={String(lenderAmt || '')} onChange={e => setAmount(e.target.value)} className={inp + ' w-full'} /></label>
           <label className="text-xs text-slate-500">Letter date<input type="date" value={date} onChange={e => setDate(e.target.value)} className={inp + ' w-full'} /></label>
           <label className="text-xs text-slate-500">Valid till (optional)<input type="date" value={till} onChange={e => setTill(e.target.value)} className={inp + ' w-full'} /></label>
           <label className="text-xs text-slate-500">File (PDF, JPG, PNG)<input key={fk} type="file" accept={ACCEPT} onChange={e => setFile(e.target.files?.[0] ?? null)} className={inp + ' w-full'} /></label></div>

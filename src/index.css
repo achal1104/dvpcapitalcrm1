@@ -19,3 +19,19 @@ img,svg,video,canvas{max-width:100%}
   main table{font-size:13px}
   main .overflow-x-auto th,main .overflow-x-auto td{padding-left:.6rem;padding-right:.6rem}
 }
+
+/* responsive hardening */
+html{-webkit-text-size-adjust:100%}
+body{min-height:100dvh;word-break:break-word}
+.lg\:h-screen{height:100dvh}
+main{min-width:0}
+main table th,main table td{white-space:nowrap}
+main h1{overflow-wrap:anywhere}
+.recharts-wrapper{max-width:100%}
+@media (max-width:1023px){
+  aside{padding-bottom:calc(1rem + env(safe-area-inset-bottom))}
+  button,select,[role=button],a.block{min-height:40px}
+}
+@media (max-width:640px){
+  main{padding-left:.75rem;padding-right:.75rem}
+}
